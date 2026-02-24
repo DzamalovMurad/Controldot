@@ -1,0 +1,28 @@
+doctype html
+html(lang="ru")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title To-Do List
+    link(rel="stylesheet", href="/static/index.css")
+  body
+    .container
+      h1 Список дел
+
+      form#todo-form
+        input#todo-title(type="text" placeholder="Новая задача..." required)
+        button(type="submit") Добавить
+
+      p#error-message
+
+      ul#todo-list
+        each todo in todos
+          li.todo-item(class=todo.completed ? 'completed' : '' data-id=todo.id)
+            input.todo-checkbox(type="checkbox" checked=todo.completed)
+            span.todo-title= todo.title
+            button.todo-edit Редактировать
+            button.todo-delete Удалить
+
+    script.
+      window.__INITIAL_TODOS__ = !{JSON.stringify(todos)};
+    script(src="/static/index.js")

@@ -1,0 +1,381 @@
+/* views/index.css */
+/* Premium minimalist design — dark glass morphism */
+
+/* ══════════════════════════════════════════════
+   0. ШРИФТ
+   ══════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ══════════════════════════════════════════════
+   1. CSS-ПЕРЕМЕННЫЕ
+   ══════════════════════════════════════════════ */
+:root {
+  --bg-deep:        #0a0a0f;
+  --bg-card:        rgba(255, 255, 255, 0.04);
+  --bg-card-hover:  rgba(255, 255, 255, 0.07);
+  --bg-input:       rgba(255, 255, 255, 0.06);
+  --border:         rgba(255, 255, 255, 0.08);
+  --border-focus:   rgba(168, 130, 255, 0.5);
+  --text-primary:   #f0eef6;
+  --text-secondary: #8b879e;
+  --text-done:      #4a4758;
+  --accent:         #a882ff;
+  --accent-glow:    rgba(168, 130, 255, 0.35);
+  --danger:         #ff6b8a;
+  --danger-glow:    rgba(255, 107, 138, 0.3);
+  --success:        #6bffc1;
+  --radius:         14px;
+  --radius-sm:      10px;
+  --transition:     0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ══════════════════════════════════════════════
+   2. СБРОС И ОСНОВА
+   ══════════════════════════════════════════════ */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { font-size: 16px; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Тонкие фоновые сферы */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::before {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(168, 130, 255, 0.2), transparent 70%);
+  top: -200px;
+  left: -100px;
+}
+
+body::after {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(107, 255, 193, 0.12), transparent 70%);
+  bottom: -150px;
+  right: -80px;
+}
+
+/* ══════════════════════════════════════════════
+   3. КОНТЕЙНЕР-КАРТОЧКА (GLASS)
+   ══════════════════════════════════════════════ */
+.container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 560px;
+  background: var(--bg-card);
+  backdrop-filter: blur(40px) saturate(1.4);
+  -webkit-backdrop-filter: blur(40px) saturate(1.4);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 48px 40px 40px;
+  box-shadow:
+    0  4px  30px rgba(0, 0, 0, 0.5),
+    0  0   80px rgba(168, 130, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  animation: fadeUp 0.6s var(--transition) both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════════════════════════════════════════════
+   4. ЗАГОЛОВОК
+   ══════════════════════════════════════════════ */
+h1 {
+  font-weight: 700;
+  font-size: 1.75rem;
+  letter-spacing: -0.03em;
+  text-align: center;
+  margin-bottom: 32px;
+  background: linear-gradient(135deg, var(--text-primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ══════════════════════════════════════════════
+   5. ФОРМА
+   ══════════════════════════════════════════════ */
+form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 14px 18px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  outline: none;
+  transition: border var(--transition), box-shadow var(--transition);
+}
+
+input[type="text"]::placeholder {
+  color: var(--text-secondary);
+}
+
+input[type="text"]:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* Кнопка «Добавить» */
+form button {
+  padding: 14px 24px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), #8b5cf6);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px var(--accent-glow);
+}
+
+form button:active {
+  transform: translateY(0) scale(0.97);
+}
+
+/* ══════════════════════════════════════════════
+   6. СООБЩЕНИЕ ОБ ОШИБКЕ
+   ══════════════════════════════════════════════ */
+#error-message {
+  color: var(--danger);
+  font-size: 0.85rem;
+  min-height: 1.2em;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+/* ══════════════════════════════════════════════
+   7. СПИСОК ЗАДАЧ
+   ══════════════════════════════════════════════ */
+#todo-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ══════════════════════════════════════════════
+   8. ЭЛЕМЕНТ ЗАДАЧИ
+   ══════════════════════════════════════════════ */
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: background var(--transition), border var(--transition), transform var(--transition);
+  animation: slideIn 0.35s var(--transition) both;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.todo-item:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateX(4px);
+}
+
+/* ══════════════════════════════════════════════
+   9. КАСТОМНЫЙ ЧЕКБОКС
+   ══════════════════════════════════════════════ */
+.todo-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  border: 2px solid var(--text-secondary);
+  border-radius: 7px;
+  cursor: pointer;
+  position: relative;
+  transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
+}
+
+.todo-checkbox:checked {
+  border-color: var(--success);
+  background: var(--success);
+  box-shadow: 0 0 10px rgba(107, 255, 193, 0.3);
+}
+
+.todo-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--bg-deep);
+  line-height: 1;
+}
+
+/* ══════════════════════════════════════════════
+   10. НАЗВАНИЕ ЗАДАЧИ
+   ══════════════════════════════════════════════ */
+.todo-title {
+  flex: 1;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  transition: color var(--transition), text-decoration var(--transition);
+  word-break: break-word;
+}
+
+.todo-item.completed .todo-title {
+  color: var(--text-done);
+  text-decoration: line-through;
+  text-decoration-color: var(--text-done);
+}
+
+/* ══════════════════════════════════════════════
+   11. КНОПКИ ДЕЙСТВИЙ
+   ══════════════════════════════════════════════ */
+.todo-edit,
+.todo-delete {
+  padding: 7px 14px;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  background: transparent;
+  transition: color var(--transition), border-color var(--transition), background var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+
+.todo-edit {
+  color: var(--accent);
+}
+
+.todo-edit:hover {
+  background: rgba(168, 130, 255, 0.1);
+  border-color: var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow);
+  transform: translateY(-1px);
+}
+
+.todo-delete {
+  color: var(--danger);
+}
+
+.todo-delete:hover {
+  background: rgba(255, 107, 138, 0.1);
+  border-color: var(--danger);
+  box-shadow: 0 0 12px var(--danger-glow);
+  transform: translateY(-1px);
+}
+
+.todo-edit:active,
+.todo-delete:active {
+  transform: scale(0.95);
+}
+
+/* ══════════════════════════════════════════════
+   12. ПУСТОЙ СПИСОК — ПОДСКАЗКА
+   ══════════════════════════════════════════════ */
+#todo-list:empty::after {
+  content: 'Задач пока нет — добавьте первую ✨';
+  display: block;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  padding: 32px 0 16px;
+}
+
+/* ══════════════════════════════════════════════
+   13. СКРОЛЛБАР
+   ══════════════════════════════════════════════ */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+/* ══════════════════════════════════════════════
+   14. АДАПТИВ
+   ══════════════════════════════════════════════ */
+@media (max-width: 520px) {
+  .container {
+    padding: 32px 20px 28px;
+    border-radius: 18px;
+  }
+
+  form {
+    flex-direction: column;
+  }
+
+  form button {
+    width: 100%;
+  }
+
+  .todo-item {
+    flex-wrap: wrap;
+  }
+
+  .todo-title {
+    width: calc(100% - 40px);
+  }
+
+  .todo-edit,
+  .todo-delete {
+    flex: 1;
+    text-align: center;
+  }
+}
